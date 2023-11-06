@@ -1,0 +1,164 @@
+[
+  {
+    "foodName": "Burger",
+    "foodCategory": "Fast Food",
+    "image": "https://i.ibb.co/t4qg2qJ/burger.jpg",
+    "price": "$5.99",
+    "quantity": 20,
+    "foodOrigin": "United States",
+    "description": "A classic American fast-food staple, the burger is a delicious combination of a beef patty, lettuce, tomato, cheese, and condiments sandwiched in a soft bun."
+  },
+  {
+    "foodName": "Tacos",
+    "foodCategory": "Bread",
+    "image": "https://i.ibb.co/9W6Lt4C/tacos.jpg",
+    "price": "$2.99",
+    "quantity": 18,
+    "foodOrigin": "Mexico",
+    "description": "Tacos are a Mexican delight, featuring soft or crispy tortillas filled with seasoned meat, salsa, cheese, and various toppings."
+  },
+  {
+    "foodName": "Steak",
+    "foodCategory": "Main Course",
+    "image": "https://i.ibb.co/p2QbHjk/37069.jpg",
+    "price": "$15.99",
+    "quantity": 14,
+    "foodOrigin": "Various",
+    "description": "Steak is a high-quality cut of meat, usually beef, grilled or pan-seared to perfection and often served with a choice of sauces and side dishes."
+  },
+  {
+    "foodName": "Pizza",
+    "foodCategory": "Fast food",
+    "image": "https://i.ibb.co/C8PLVWd/pizza.jpg",
+    "price": "$10.99",
+    "quantity": 20,
+    "foodOrigin": "Italy",
+    "description": "Pizza is an Italian creation with a thin crust, topped with tomato sauce, cheese, and various toppings, then baked to a delicious, melty perfection."
+  },
+  {
+    "foodName": "Sushi",
+    "foodCategory": "Fish",
+    "image": "https://i.ibb.co/VLJDtH9/sushi-rolls.jpg",
+    "price": "$12.99",
+    "quantity": 12,
+    "foodOrigin": "Japan",
+    "description": "Sushi consists of vinegared rice, fresh fish, and vegetables, often rolled in seaweed and served with soy sauce, wasabi, and pickled ginger."
+  },
+  {
+    "foodName": "Pasta Carbonara",
+    "foodCategory": "Noodles",
+    "image": "https://i.ibb.co/F4H16mS/pasta.jpg",
+    "price": "$9.99",
+    "quantity": 19,
+    "foodOrigin": "Italy",
+    "description": "Pasta Carbonara is an Italian pasta dish featuring spaghetti, eggs, cheese, pancetta, and black pepper, creating a creamy, flavorful sauce."
+  },
+  {
+    "foodName": "Chicken Curry",
+    "foodCategory": "Curry",
+    "image": "https://i.ibb.co/LgfF3NY/chicken-curry.jpg",
+    "price": "$11.99",
+    "quantity": 20,
+    "foodOrigin": "India",
+    "description": "Chicken Curry is a popular Indian dish made with chicken pieces, curry spices, and a rich, flavorful sauce, often served with rice or bread."
+  },
+  {
+    "foodName": "Sushi Rolls",
+    "foodCategory": "Fish",
+    "image": "https://i.ibb.co/VLJDtH9/sushi-rolls.jpg",
+    "price": "$14.99",
+    "quantity": 17,
+    "foodOrigin": "Japan",
+    "description": "Sushi rolls are a variety of rolled sushi, filled with ingredients like fish, vegetables, and avocado, wrapped in seaweed and rice."
+  },
+  {
+    "foodName": "Pho",
+    "foodCategory": "Noodles",
+    "image": "https://i.ibb.co/Fqjg74M/24646.jpg",
+    "price": "$8.99",
+    "quantity": 11,
+    "foodOrigin": "Vietnam",
+    "description": "Pho is a Vietnamese noodle soup, typically made with beef or chicken, and served with herbs, lime, and bean sprouts, known for its delicious broth."
+  },
+  {
+    "foodName": "Salmon Salad",
+    "foodCategory": "Vegetables",
+    "image": "https://i.ibb.co/VDXT02S/salmon-salad.jpg",
+    "price": "$9.99",
+    "quantity": 6,
+    "foodOrigin": "Various",
+    "description": "A Salmon Salad is a healthy and tasty dish featuring grilled or smoked salmon, mixed greens, and various vegetables, often drizzled with vinaigrette."
+  },
+  {
+    "foodName": "Ramen",
+    "foodCategory": "Noodles",
+    "image": "https://i.ibb.co/rtFyCpK/ramen.jpg",
+    "price": "$7.99",
+    "quantity": 14,
+    "foodOrigin": "Japan",
+    "description": "Ramen is a Japanese noodle soup, typically made with broth, Chinese-style wheat noodles, and toppings like pork, seaweed, and egg."
+  },
+  {
+    "foodName": "Spaghetti Bolognese",
+    "foodCategory": "Noodles",
+    "image": "https://i.ibb.co/d5mn8R5/spaghetti.jpg",
+    "price": "$10.99",
+    "quantity": 18,
+    "foodOrigin": "Italy",
+    "description": "Spaghetti Bolognese is an Italian pasta dish with a rich, meaty tomato sauce, served over spaghetti and topped with grated Parmesan cheese."
+  },
+  {
+    "foodName": "Fish and Chips",
+    "foodCategory": "Crisp",
+    "image": "https://i.ibb.co/whpcxQb/fish-and-chips.jpg",
+    "price": "$8.99",
+    "quantity": 20,
+    "foodOrigin": "United Kingdom",
+    "description": "Fish and Chips is a classic British dish featuring battered and fried white fish served with deep-fried potato chips, often enjoyed with tartar sauce."
+  },
+  {
+    "foodName": "Tandoori Chicken",
+    "foodCategory": "Meat",
+    "image": "https://i.ibb.co/Q7B06N6/tandoori-chicken.jpg",
+    "price": "$12.99",
+    "quantity": 20,
+    "foodOrigin": "India",
+    "description": "Tandoori Chicken is an Indian dish of marinated and grilled chicken, typically cooked in a tandoor (clay oven) and served with naan bread and yogurt sauce."
+  },
+  {
+    "foodName": "Miso Soup",
+    "foodCategory": "Soup",
+    "image": "https://i.ibb.co/zS2dsfY/soup.jpg",
+    "price": "$4.99",
+    "quantity": 13,
+    "foodOrigin": "Japan",
+    "description": "Miso Soup is a Japanese soup made from fermented soybean paste (miso), with added seaweed, tofu, and green onions, creating a savory broth."
+  },
+  {
+    "foodName": "Gyros",
+    "foodCategory": "Wrap",
+    "image": "https://i.ibb.co/q0q73QC/gyro.jpg",
+    "price": "$6.99",
+    "quantity": 15,
+    "foodOrigin": "Greece",
+    "description": "Gyros are Greek sandwiches filled with slices of meat (usually lamb or beef), tomatoes, onions, and tzatziki sauce, wrapped in pita bread."
+  },
+  {
+    "foodName": "Pad Thai",
+    "foodCategory": "Noodles",
+    "image": "https://i.ibb.co/Zx3vvLw/pad-thai.jpg",
+    "price": "$10.99",
+    "quantity": 15,
+    "foodOrigin": "Thailand",
+    "description": "Pad Thai is a popular Thai stir-fried noodle dish with ingredients like rice noodles, shrimp or chicken, eggs, tofu, and a tamarind-based sauce."
+  },
+  {
+    "foodName": "Shawarma",
+    "foodCategory": "Bread",
+    "image": "https://i.ibb.co/LrwDSGh/shawarma.jpg",
+    "price": "$16.99",
+    "quantity": 10,
+    "foodOrigin": "Arab",
+    "description": "Shawarma is a Middle Eastern dish that originated in the Levant region of the Arab world during the Ottoman Empire consisting of meat cut into thin slices"
+  }
+]

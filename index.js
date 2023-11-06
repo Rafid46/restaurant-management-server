@@ -8,6 +8,7 @@ console.log(process.env.DB_USER);
 console.log(process.env.DB_PASS);
 const port = process.env.PORT || 5008;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { parse } = require("dotenv");
 // middleware;
 app.use(
   cors({
@@ -34,6 +35,31 @@ async function run() {
     await client.connect();
     // user(email)
     const userCollection = client.db("restaurant").collection("user");
+    const foodCollection = client.db("restaurant").collection("foods");
+    //food apis
+    app.post("/api/foods", async (req, res) => {
+      const food = req.body;
+      const result = await foodCollection.insertOne(food);
+      res.send(result);
+    });
+    app.get("/api/foods", async (req, res) => {
+      const page = parseInt(req.query.page);
+      const size = parseInt(req.query.size);
+      console.log("pagination", page, size);
+      const result = await foodCollection
+        .find()
+        .skip(page * size)
+        .limit(size)
+        .toArray();
+      res.send(result);
+    });
+    // details get
+    app.get("/api/foods/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await foodCollection.findOne(query);
+      res.send(result);
+    });
     // user related apis
     app.post("/api/user", async (req, res) => {
       const user = req.body;
@@ -41,6 +67,14 @@ async function run() {
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
+    // add products api
+    // post add products
+    // app.post("/api/foods/addedFood", async (req, res) => {
+    //   const newFood = req.body;
+    //   console.log(newFood);
+    //   const result = await foodCollection.insertOne(newProducts);
+    //   res.send(result);
+    // });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
