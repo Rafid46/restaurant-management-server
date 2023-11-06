@@ -36,6 +36,7 @@ async function run() {
     // user(email)
     const userCollection = client.db("restaurant").collection("user");
     const foodCollection = client.db("restaurant").collection("foods");
+    const orderedCollection = client.db("restaurant").collection("orderedFood");
     //food apis
     app.post("/api/foods", async (req, res) => {
       const food = req.body;
@@ -69,12 +70,12 @@ async function run() {
     });
     // add products api
     // post add products
-    // app.post("/api/foods/addedFood", async (req, res) => {
-    //   const newFood = req.body;
-    //   console.log(newFood);
-    //   const result = await foodCollection.insertOne(newProducts);
-    //   res.send(result);
-    // });
+    app.post("/api/foods/addedFood", async (req, res) => {
+      const newFood = req.body;
+      console.log(newFood);
+      const result = await orderedCollection.insertOne(newFood);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
