@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-// const jwt = require("jsonwebtoken");
-// const cookie = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+// const secret = "heeeeellllllooooo";
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 // console.log(process.env.DB_USER);
 // console.log(process.env.DB_PASS);
@@ -10,15 +11,15 @@ const port = process.env.PORT || 5008;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 // const { parse } = require("dotenv");
 // middleware;
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: ["http://localhost:5173"],
-//     credentials: true,
-//   })
-// );
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 app.use(express.json());
-// app.use(cookie());
+app.use(cookieParser());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.j1gssm8.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -29,6 +30,16 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+// middlewars
+const logger = (req, res, next) => {
+  console.log("log info", req.method, req.url);
+  next();
+};
+const verifyToken = (req, res, next) => {
+  const token = req.cookies.token;
+  console.log("token in the middleware", token);
+  next();
+};
 
 async function run() {
   try {
@@ -78,22 +89,8 @@ async function run() {
       res.send(result);
     });
     // api get to show the data of my ordered food
-    app.get("/api/purchaseFood", async (req, res) => {
-      // const result = await orderedCollection.find().toArray();
-      // res.send(result);
-      // const query = {req.params.email};
-      // const result = await orderedCollection
-      //   .find({ email: req.params.email })
-      //   .toArray();
-      // res.send(result);
-      // let queryObj = {};
-      // const email = req.query.email;
-      // if (email) {
-      //   queryObj.email = email;
-      // }
-      // const cursor = orderedCollection.find(queryObj);
-      // const result = await cursor.toArray();
-      // res.send(result);
+    app.get("/api/purchaseFood", logger, verifyToken, async (req, res) => {
+      console.log("coookiiees", req.cookies);
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
@@ -119,14 +116,28 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       console.log(query);
       const result = await orderedCollection.deleteOne(query);
-      // res.send({
-      //   message: "something",
-      //   success: true,
-      //   data: result,
-      // });
       res.send(result);
     });
-
+    // jwt
+    app.post("/jwt", async (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        })
+        .send({ success: true });
+    });
+    // jwt logout
+    app.post("/logout", async (req, res) => {
+      const user = req.body;
+      console.log("logged out", user);
+      res.clearCookie("token", { maxAge: 0 }).send({ success: true });
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
