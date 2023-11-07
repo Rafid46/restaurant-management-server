@@ -79,7 +79,26 @@ async function run() {
     });
     // api get to show the data of my ordered food
     app.get("/api/purchaseFood", async (req, res) => {
-      const result = await orderedCollection.find().toArray();
+      // const result = await orderedCollection.find().toArray();
+      // res.send(result);
+      // const query = {req.params.email};
+      // const result = await orderedCollection
+      //   .find({ email: req.params.email })
+      //   .toArray();
+      // res.send(result);
+      // let queryObj = {};
+      // const email = req.query.email;
+      // if (email) {
+      //   queryObj.email = email;
+      // }
+      // const cursor = orderedCollection.find(queryObj);
+      // const result = await cursor.toArray();
+      // res.send(result);
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await orderedCollection.find(query).toArray();
       res.send(result);
     });
     // add products
@@ -94,6 +113,20 @@ async function run() {
       const result = await foodCollection.find().toArray();
       res.send(result);
     });
+    // delete
+    app.delete("/api/purchaseFood/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      console.log(query);
+      const result = await orderedCollection.deleteOne(query);
+      // res.send({
+      //   message: "something",
+      //   success: true,
+      //   data: result,
+      // });
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
