@@ -4,18 +4,19 @@ const app = express();
 // const jwt = require("jsonwebtoken");
 // const cookie = require("cookie-parser");
 require("dotenv").config();
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASS);
+// console.log(process.env.DB_USER);
+// console.log(process.env.DB_PASS);
 const port = process.env.PORT || 5008;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
-const { parse } = require("dotenv");
+// const { parse } = require("dotenv");
 // middleware;
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    credentials: true,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173"],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 // app.use(cookie());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.j1gssm8.mongodb.net/?retryWrites=true&w=majority`;
@@ -68,12 +69,29 @@ async function run() {
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
-    // add products api
-    // post add products
-    app.post("/api/foods/addedFood", async (req, res) => {
+    // purchase api
+    // post purchased/ordered products
+    app.post("/api/purchaseFood", async (req, res) => {
       const newFood = req.body;
       console.log(newFood);
       const result = await orderedCollection.insertOne(newFood);
+      res.send(result);
+    });
+    // api get to show the data of my ordered food
+    app.get("/api/purchaseFood", async (req, res) => {
+      const result = await orderedCollection.find().toArray();
+      res.send(result);
+    });
+    // add products
+    app.post("/api/addedFood", async (req, res) => {
+      const newFood = req.body;
+      console.log(newFood);
+      const result = await foodCollection.insertOne(newFood);
+      res.send(result);
+    });
+    // add product get
+    app.get("/api/addedFood", async (req, res) => {
+      const result = await foodCollection.find().toArray();
       res.send(result);
     });
     // Send a ping to confirm a successful connection
