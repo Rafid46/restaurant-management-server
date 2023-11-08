@@ -122,26 +122,36 @@ async function run() {
       const result = await orderedCollection.deleteOne(query);
       res.send(result);
     });
+    // UPDATE GET
+    app.get("/api/foods", async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await foodCollection.find(query).toArray();
+      res.send(result);
+    });
     // update
-    // app.put("/api/addedFood/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const filter = { _id: new ObjectId(id) };
-    //   const options = { upsert: true };
-    //   const updatedProduct = req.body;
-    //   const product = {
-    //     $set: {
-    //       name: updatedProduct.name,
-    //       image: updatedProduct.image,
-    //       price: updatedProduct.price,
-    //       details: updatedProduct.details,
-    //       description: updatedProduct.description,
-    //       rating: updatedProduct.rating,
-    //       brand: updatedProduct.brand,
-    //     },
-    //   };
-    //   const result = await foodCollection.updateOne(filter, product, options);
-    //   res.send(result);
-    // });
+    app.put("/api/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const foods = req.body;
+      const product = {
+        $set: {
+          foodName: foods.foodName,
+          image: foods.image,
+          price: foods.price,
+          description: foods.description,
+          quantity: foods.quantity,
+          foodOrigin: foods.foodOrigin,
+          category: foods.category,
+        },
+      };
+      const result = await foodCollection.updateOne(filter, product, options);
+      res.send(result);
+    });
+
     // jwt
     app.post("/jwt", async (req, res) => {
       const user = req.body;
