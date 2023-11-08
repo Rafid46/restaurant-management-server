@@ -107,7 +107,11 @@ async function run() {
     });
     // add product get
     app.get("/api/addedFood", async (req, res) => {
-      const result = await foodCollection.find().toArray();
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await foodCollection.find(query).toArray();
       res.send(result);
     });
     // delete
@@ -118,6 +122,26 @@ async function run() {
       const result = await orderedCollection.deleteOne(query);
       res.send(result);
     });
+    // update
+    // app.put("/api/addedFood/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const filter = { _id: new ObjectId(id) };
+    //   const options = { upsert: true };
+    //   const updatedProduct = req.body;
+    //   const product = {
+    //     $set: {
+    //       name: updatedProduct.name,
+    //       image: updatedProduct.image,
+    //       price: updatedProduct.price,
+    //       details: updatedProduct.details,
+    //       description: updatedProduct.description,
+    //       rating: updatedProduct.rating,
+    //       brand: updatedProduct.brand,
+    //     },
+    //   };
+    //   const result = await foodCollection.updateOne(filter, product, options);
+    //   res.send(result);
+    // });
     // jwt
     app.post("/jwt", async (req, res) => {
       const user = req.body;
