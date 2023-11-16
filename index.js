@@ -14,7 +14,12 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 // app.use(cors());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://restaurant-management-4c7d4.web.app",
+      "https://restaurant-management-4c7d4.firebaseapp.com",
+    ],
     credentials: true,
   })
 );
@@ -30,7 +35,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-// middlewars
+// middleWars
 const logger = (req, res, next) => {
   console.log("log info", req.method, req.url);
   next();
@@ -44,12 +49,32 @@ const verifyToken = (req, res, next) => {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
+    // top 6 food get
+    // app.get("/api/topFood", async (req, res) => {
+    //   try {
+    //     // Sort the food items by the 'count' property in descending order
+    //     const topFood = await foodCollection
+    //       .find()
+    //       .sort({ count: -1 }) // Sort in descending order based on count
+    //       .limit(6) // Limit the result to the top 6 items
+    //       .toArray();
+
+    //     res.json(topFood);
+    //   } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: "Failed to retrieve top-selling food." });
+    //   }
+    // });
+    // food get count
+    app.get("/productsCount", async (req, res) => {
+      const count = await foodCollection.estimatedDocumentCount();
+      res.send({ count });
+    });
     // user(email)
     const userCollection = client.db("restaurant").collection("user");
     const foodCollection = client.db("restaurant").collection("foods");
     const orderedCollection = client.db("restaurant").collection("orderedFood");
-    //food apis
     app.post("/api/foods", async (req, res) => {
       const food = req.body;
       const result = await foodCollection.insertOne(food);
@@ -58,9 +83,18 @@ async function run() {
     app.get("/api/foods", async (req, res) => {
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
-      console.log("pagination", page, size);
+      const filter = req.query;
+      // const query = {};
+      // if (filter.search) {
+      //   // If present, add the "foodName" query with regex
+      //   query.foodName = { $regex: filter.search };
+      // }
+      // console.log("pagination", page, size);
+      const query = {
+        foodName: { $regex: filter.search, $options: "i" },
+      };
       const result = await foodCollection
-        .find()
+        .find(query)
         .skip(page * size)
         .limit(size)
         .toArray();
@@ -74,7 +108,7 @@ async function run() {
       res.send(result);
     });
     // user related apis
-    app.post("/api/user", async (req, res) => {
+    app.post("/api/user", logger, verifyToken, async (req, res) => {
       const user = req.body;
       console.log(user);
       const result = await userCollection.insertOne(user);
@@ -99,7 +133,7 @@ async function run() {
       res.send(result);
     });
     // add products
-    app.post("/api/addedFood", async (req, res) => {
+    app.post("/api/addedFood", logger, verifyToken, async (req, res) => {
       const newFood = req.body;
       console.log(newFood);
       const result = await foodCollection.insertOne(newFood);
